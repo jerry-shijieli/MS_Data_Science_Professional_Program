@@ -7,7 +7,7 @@ update SalesLT.Customer
 set EmailAddress = NULL 
 where CustomerID % 7 = 1;
 -- Retrieve primary contact details
-select ISNULL(EmailAddress, Phone) as PrimaryContact
+select coalesce(EmailAddress, Phone) as PrimaryContact
 from SalesLT.Customer;
 
 -- Mannully remove shipping date for task 3
