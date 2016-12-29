@@ -40,8 +40,10 @@ def do_PCA(armadillo):
   # you automatically. =)
   #
   # .. your code here ..
-
-  return None
+  from sklearn.decomposition import PCA
+  pca = PCA(n_components=2)
+  pca.fit(armadillo)
+  return pca.transform(armadillo)
 
 
 def do_RandomizedPCA(armadillo):
@@ -58,8 +60,10 @@ def do_RandomizedPCA(armadillo):
   # you automatically. =)
   #
   # .. your code here ..
-
-  return None
+  from sklearn.decomposition import RandomizedPCA
+  rpca = RandomizedPCA(n_components=2)
+  rpca.fit(armadillo)
+  return rpca.transform(armadillo)
 
 
 

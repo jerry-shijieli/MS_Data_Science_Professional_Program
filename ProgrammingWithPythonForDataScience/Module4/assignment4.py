@@ -52,7 +52,11 @@ for i in range(num_images):
 # y is the principal component you want displayed on the y-axis, Can be 1 or 2
 #
 # .. your code here ..
-
+from sklearn.decomposition import PCA
+pca = PCA(n_components=2)
+pca.fit(df)
+T = pca.transform(df)
+Plot2D(T, "PCA plots of face dataset", 0, 1)
 
 #
 # TODO: Implement Isomap here. Reduce the dataframe df down
@@ -60,7 +64,11 @@ for i in range(num_images):
 # the first two components.
 #
 # .. your code here ..
-
+from sklearn import manifold
+iso = manifold.Isomap(n_neighbors=3, n_components=2)
+iso.fit(df)
+M = iso.transform(df)
+Plot2D(M, "Isomap plots of face dataset", 0, 1)
 
 #
 # TODO: If you're up for a challenge, draw your dataframes in 3D

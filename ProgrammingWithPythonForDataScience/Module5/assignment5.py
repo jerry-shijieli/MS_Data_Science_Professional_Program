@@ -52,22 +52,24 @@ def plotDecisionBoundary(model, X, y):
 # loading your data properly--don't fail on the 1st step!
 #
 # .. your code here ..
-
-
+datafile = "./Datasets/wheat.data"
+X = pd.read_csv(datafile, header=0)
+X.head()
 
 #
 # TODO: Copy the 'wheat_type' series slice out of X, and into a series
 # called 'y'. Then drop the original 'wheat_type' column from the X
 #
 # .. your code here ..
-
+y = X.wheat_type
+X = X.drop(labels=['wheat_type'], axis=1)
 
 
 # TODO: Do a quick, "ordinal" conversion of 'y'. In actuality our
 # classification isn't ordinal, but just as an experiment...
 #
 # .. your code here ..
-
+y['wheat_type'] = y.wheat_type.astype("category").cat.codes
 
 
 #

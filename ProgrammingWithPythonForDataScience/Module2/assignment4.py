@@ -6,7 +6,9 @@ import pandas as pd
 # carefully at the sample code provided in the reading
 #
 # .. your code here ..
-
+df = pd.read_html('http://www.espn.com/nhl/statistics/player/_/stat/points/sort/points/year/2015/seasontype/2')[0]
+df.head()
+df.describe()
 
 # TODO: Rename the columns so that they match the
 # column definitions provided to you on the website

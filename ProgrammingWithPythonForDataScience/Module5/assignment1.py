@@ -2,7 +2,11 @@
 # TOOD: Import whatever needs to be imported to make this work
 #
 # .. your code here ..
-
+import pandas as pd
+import numpy as np
+from sklearn.cluster import KMeans
+import matplotlib
+import matplotlib.pyplot as plt
 
 matplotlib.style.use('ggplot') # Look Pretty
 
@@ -31,11 +35,14 @@ def doKMeans(df):
   # since the remaining columns aren't really applicable for this purpose.
   #
   # .. your code here ..
+  locations = df[['Longitude', 'Latitude']]
 
   #
   # TODO: Use K-Means to try and find seven cluster centers in this df.
   #
   # .. your code here ..
+  kmeans_model = KMeans(n_clusters=7)
+  kmeans_model.fit(locations)
 
   #
   # INFO: Print and plot the centroids...
@@ -49,25 +56,28 @@ def doKMeans(df):
 # TODO: Load your dataset after importing Pandas
 #
 # .. your code here ..
-
+datafile = "./Datasets/Crimes_-_2001_to_present.csv"
+df = pd.read_csv(datafile, header=0)
 
 #
 # TODO: Drop any ROWs with nans in them
 #
 # .. your code here ..
-
+df = df.dropna(axis=0)
 
 #
 # TODO: Print out the dtypes of your dset
 #
 # .. your code here ..
-
+print df.dtypes
 
 #
 # Coerce the 'Date' feature (which is currently a string object) into real date,
 # and confirm by re-printing the dtypes. NOTE: This is a slow process...
 #
 # .. your code here ..
+df.Date = pd.to_datetime(df.Date, errors='coerce')
+print df.Date.dtypes
 
 
 # INFO: Print & Plot your data
@@ -80,7 +90,7 @@ doKMeans(df)
 # crime incidents, as well as a new K-Means run's centroids.
 #
 # .. your code here ..
-
+df = df[df.Date > '2011-01-01']
 
 
 # INFO: Print & Plot your data

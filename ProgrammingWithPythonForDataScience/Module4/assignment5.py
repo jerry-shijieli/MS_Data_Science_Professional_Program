@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 from scipy import misc
 from mpl_toolkits.mplot3d import Axes3D
@@ -14,6 +15,8 @@ matplotlib.style.use('ggplot')
 # python list. You can call it 'samples'.
 #
 # .. your code here .. 
+samples = list()
+colors = list()
 
 #
 # TODO: Write a for-loop that iterates over the images in the
@@ -28,7 +31,13 @@ matplotlib.style.use('ggplot')
 # effect on the algorithm's results.
 #
 # .. your code here .. 
-
+datadir = "./Datasets/ALOI/32/"
+for f in os.listdir(datadir):
+    if f.endswith('.png'):
+        img = misc.imread(os.path.join(datadir, f))
+        img = img.reshape(-1)
+        samples.append(img)
+        colors.append('b')
 
 #
 # TODO: Once you're done answering the first three questions,
@@ -38,22 +47,29 @@ matplotlib.style.use('ggplot')
 # assignment and answer the final question below.
 #
 # .. your code here .. 
-
+datadir_i = "./Datasets/ALOI/32i/"
+for f in os.listdir(datadir_i):
+    if f.endswith('.png'):
+        img = misc.imread(os.path.join(datadir_i, f))
+        img = img.reshape(-1)
+        samples.append(img)
+        colors.append('r')
 
 #
 # TODO: Convert the list to a dataframe
 #
 # .. your code here .. 
-
-
+df = pd.DataFrame(samples)
 
 #
 # TODO: Implement Isomap here. Reduce the dataframe df down
 # to three components, using K=6 for your neighborhood size
 #
 # .. your code here .. 
-
-
+from sklearn import manifold
+iso = manifold.Isomap(n_neighbors=6, n_components=3)
+iso.fit(df)
+M = iso.transform(df)
 
 #
 # TODO: Create a 2D Scatter plot to graph your manifold. You
@@ -62,16 +78,25 @@ matplotlib.style.use('ggplot')
 #
 # .. your code here .. 
 
-
-
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.set_title("2D plot of manifold")
+ax.set_xlabel('Component: 1')
+ax.set_ylabel('Component: 2')
+ax.scatter(M[:,0], M[:,1], c=colors, marker='o', alpha=0.7)
 
 #
 # TODO: Create a 3D Scatter plot to graph your manifold. You
 # can use either 'o' or '.' as your marker:
 #
 # .. your code here .. 
-
-
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.set_title("3D plot of manifold")
+ax.set_xlabel('Component: 1')
+ax.set_ylabel('Component: 2')
+ax.set_zlabel('Component: 3')
+ax.scatter(M[:,0], M[:,1], M[:,2], c=colors, marker='.', alpha=0.7)
 
 plt.show()
 

@@ -12,7 +12,8 @@ matplotlib.style.use('ggplot')
 # It's located at 'Datasets/wheat.data'
 # 
 # .. your code here ..
-
+datafile = './Datasets/wheat.data'
+df = pd.read_csv(datafile, header=0)
 
 
 fig = plt.figure()
@@ -24,6 +25,11 @@ fig = plt.figure()
 # axes
 # 
 # .. your code here ..
+ax = fig.add_subplot(111, projection='3d')
+ax.set_xlabel('area')
+ax.set_ylabel('perimeter')
+ax.set_zlabel('asymmetry')
+ax.scatter(df.area, df.perimeter, df.asymmetry, c='red', marker='.')
 
 
 fig = plt.figure()
@@ -35,7 +41,11 @@ fig = plt.figure()
 # axes
 # 
 # .. your code here ..
-
+ax = fig.add_subplot(111, projection='3d')
+ax.set_xlabel('width')
+ax.set_ylabel('groove')
+ax.set_zlabel('length')
+ax.scatter(df.width, df.groove, df.length, c='green', marker='.')
 
 plt.show()
 
